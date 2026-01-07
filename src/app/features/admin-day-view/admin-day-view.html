@@ -1,0 +1,54 @@
+<div class="relative overflow-auto">
+
+    <!-- Header -->
+    <div class="grid grid-cols-[80px_repeat(4,1fr)] sticky top-0 bg-white z-10 border-b">
+        <div></div>
+
+        @for (court of courts; track court.id) {
+        <div class="py-2 text-center border-l text-sm font-medium">
+            {{ court.name }}
+            <div class="text-xs text-gray-500">{{ court.type }}</div>
+        </div>
+        }
+    </div>
+
+    <!-- Timeline -->
+    <div class="relative grid grid-cols-[80px_repeat(4,1fr)]">
+
+        <!-- Time column -->
+        <div>
+            @for (hour of hours; track hour) {
+            <div class="h-16 border-b text-sm text-gray-500 flex items-start justify-end pr-2 pt-1">
+                {{ hour }}
+            </div>
+            }
+        </div>
+
+        <!-- Court columns -->
+        @for (court of courts; track court.id) {
+        <div class="relative border-l">
+
+            <!-- Hour rows background -->
+            @for (hour of hours; track hour) {
+            <div class="h-16 border-b"></div>
+            }
+
+            <!-- Bookings -->
+            @for (booking of bookingsByCourt(court.id); track booking.id) {
+            <div class="absolute left-2 right-2 rounded-lg p-2 text-sm text-white shadow cursor-pointer"
+                [ngClass]="bookingColor(booking)" [style.top.px]="topOffset(booking)"
+                [style.height.px]="height(booking)" (click)="selectBooking(booking)">
+                <div class="font-semibold">{{ booking.customerName }}</div>
+                <div class="text-xs">{{ booking.start }} – {{ booking.end }}</div>
+                <div class="text-xs opacity-90">{{ booking.duration }} min</div>
+            </div>
+            }
+
+        </div>
+        }
+
+    </div>
+</div>
+
+<app-booking-details-panel [open]="!!selectedBooking" [booking]="selectedBooking!" (close)="selectedBooking = null">
+</app-booking-details-panel>

@@ -1,18 +1,14 @@
 <div class="flex h-screen bg-gray-50">
 
-    <!-- Side navigation -->
-    <app-side-nav [isOpen]="sidebarOpen" (closeNav)="sidebarOpen = false"></app-side-nav>
+    <app-side-nav [isOpen]="sidebarOpen" (closeNav)="sidebarOpen = false">
+    </app-side-nav>
 
-    <!-- Main content area -->
     <div class="flex-1 flex flex-col">
-
-        <!-- Top bar -->
         <app-top-bar (menuClick)="sidebarOpen = true"></app-top-bar>
 
-        <!-- Page content -->
         <main class="flex-1 overflow-auto">
             <router-outlet></router-outlet>
         </main>
-
     </div>
+
 </div>
