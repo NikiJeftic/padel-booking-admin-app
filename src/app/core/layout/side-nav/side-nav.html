@@ -1,0 +1,69 @@
+<!-- BACKDROP (mobile only) -->
+@if(isOpen) {
+<div class="fixed inset-0 bg-black/40 z-40 lg:hidden" (click)="close()"></div>
+
+}
+
+<!-- SIDEBAR -->
+<aside class="
+    fixed 
+    inset-y-0 left-0
+    z-50
+    w-65
+    bg-white
+    border-r border-gray-200
+    flex flex-col
+    transform
+    transition-transform duration-300
+    lg:translate-x-0
+  " [class.translate-x-0]="isOpen" [class.-translate-x-full]="!isOpen">
+    <!-- LOGO -->
+    <div class="h-16 flex items-center px-6 border-b border-gray-200">
+        <div class="flex items-center gap-3">
+            <div class="h-9 w-9 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold">
+                P
+            </div>
+            <span class="text-lg font-semibold text-gray-900">
+                Padel Admin
+            </span>
+        </div>
+
+        <!-- CLOSE (mobile only) -->
+        <button class="ml-auto text-gray-500 lg:hidden" (click)="close()">
+            ✕
+        </button>
+    </div>
+
+    <!-- NAV -->
+    <nav class="flex-1 px-3 py-4 space-y-1">
+        <a class="flex items-center gap-3 px-4 py-2 rounded-lg bg-blue-50 text-blue-700 font-medium">
+            📅 Day View
+        </a>
+        <a class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+            📐 Booking Rules
+        </a>
+        <a class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+            🎾 Courts
+        </a>
+        <a class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+            💳 Payments
+        </a>
+        <a class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+            📊 Reports
+        </a>
+    </nav>
+
+    <!-- USER -->
+    <div class="px-4 py-4 border-t border-gray-200">
+        <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold">
+                MJ
+            </div>
+            <div class="flex-1">
+                <div class="text-sm font-medium text-gray-900">Milan Jovanović</div>
+                <div class="text-xs text-gray-500">Admin</div>
+            </div>
+            <button class="text-gray-400 hover:text-gray-600">⎋</button>
+        </div>
+    </div>
+</aside>
