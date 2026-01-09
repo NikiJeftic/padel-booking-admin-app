@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { BookingDetailsPanelComponent } from '../booking-details-panel/booking-details-panel';
+import { AdminDayViewFiltersComponent, DayViewFilters } from '../admin-day-view-filters/admin-day-view-filters';
 
 export interface Booking {
   id: number;
@@ -17,7 +18,7 @@ export interface Booking {
 
 @Component({
   selector: 'app-admin-day-view',
-  imports: [NgClass, BookingDetailsPanelComponent],
+  imports: [NgClass, BookingDetailsPanelComponent, AdminDayViewFiltersComponent],
   templateUrl: './admin-day-view.html',
   styleUrl: './admin-day-view.css',
 })
@@ -85,6 +86,14 @@ export class AdminDayView {
   ];
 
   selectedBooking: Booking | null = null;
+
+  filters: DayViewFilters = {
+    date: new Date(),
+    paymentStatus: 'all',
+    bookingType: 'all',
+    courts: [],
+  };
+
 
   selectBooking(booking: Booking) {
     this.selectedBooking = booking;

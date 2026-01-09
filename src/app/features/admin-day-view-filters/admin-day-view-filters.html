@@ -1,0 +1,54 @@
+<div class="sticky top-0 z-20 bg-white border-b px-4 py-3">
+    <div class="flex flex-wrap gap-4 items-end">
+
+        <!-- Date -->
+        <mat-form-field appearance="outline" class="w-44">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker" [value]="filters.date" (dateChange)="setDate($event.value)" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Payment status -->
+        <mat-form-field appearance="outline" class="w-44">
+            <mat-label>Payment status</mat-label>
+            <mat-select [value]="filters.paymentStatus" (selectionChange)="setPaymentStatus($event.value)">
+                @for (status of paymentStatuses; track status.value) {
+                <mat-option [value]="status.value">
+                    {{ status.label }}
+                </mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Booking type -->
+        <mat-form-field appearance="outline" class="w-44">
+            <mat-label>Booking type</mat-label>
+            <mat-select [value]="filters.bookingType" (selectionChange)="setBookingType($event.value)">
+                @for (type of bookingTypes; track type.value) {
+                <mat-option [value]="type.value">
+                    {{ type.label }}
+                </mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Courts -->
+        <mat-form-field appearance="outline" class="min-w-[220px]">
+            <mat-label>Courts</mat-label>
+            <mat-select multiple [value]="filters.courts === 'all' ? ['all'] : filters.courts"
+                (selectionChange)="onCourtsSelectionChange($event.value)">
+                <mat-option value="all" [disabled]="filters.courts !== 'all'">
+                    All courts
+                </mat-option>
+
+                @for (court of courts; track court.id) {
+                <mat-option [value]="court.id">
+                    {{ court.name }}
+                </mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+</div>
