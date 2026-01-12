@@ -1,0 +1,45 @@
+<div class="h-full flex flex-col">
+
+    <!-- HEADER -->
+    <div class="p-6 border-b">
+        <h2 class="text-lg font-semibold">
+            {{ court ? 'Edit court' : 'Create court' }}
+        </h2>
+        <p class="text-sm text-gray-500">
+            Define court details and availability
+        </p>
+    </div>
+
+    <!-- BODY -->
+    <div class="flex-1 overflow-auto p-6 space-y-4">
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="form.name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Type</mat-label>
+            <mat-select [(ngModel)]="form.type">
+                <mat-option value="indoor">Indoor</mat-option>
+                <mat-option value="outdoor">Outdoor</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-slide-toggle [(ngModel)]="form.active">
+            Active
+        </mat-slide-toggle>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="border-t p-4 flex justify-end gap-2">
+        <button mat-button (click)="cancel.emit()">
+            Cancel
+        </button>
+        <button mat-flat-button color="primary" (click)="onSave()">
+            Save
+        </button>
+    </div>
+
+</div>

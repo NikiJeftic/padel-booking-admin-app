@@ -1,0 +1,27 @@
+<mat-drawer-container class="h-full">
+
+    <!-- MAIN CONTENT -->
+    <mat-drawer-content class="p-6">
+
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-xl font-semibold">Courts</h1>
+
+            <button mat-flat-button color="primary" (click)="onAddCourt()">
+                + Add court
+            </button>
+        </div>
+
+        <app-courts-list [courts]="courts" (edit)="onEditCourt($event)" (toggleActive)="onToggleActive($event)">
+        </app-courts-list>
+
+    </mat-drawer-content>
+
+    <!-- DRAWER -->
+    <mat-drawer position="end" mode="over" class="w-[420px]" [opened]="drawerOpen" (closed)="onCloseDrawer()">
+
+        <app-court-form [court]="selectedCourt" (cancel)="onCloseDrawer()" (save)="onSaveCourt($event)">
+        </app-court-form>
+
+    </mat-drawer>
+
+</mat-drawer-container>

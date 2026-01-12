@@ -1,0 +1,28 @@
+<div class="bg-white border rounded divide-y">
+
+    @for (court of courts; track court.id) {
+    <div class="p-4 flex justify-between items-center hover:bg-gray-50">
+
+        <div>
+            <div class="font-medium text-gray-900">
+                {{ court.name }}
+            </div>
+
+            <div class="text-sm text-gray-500">
+                {{ court.type | titlecase }}
+            </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <mat-slide-toggle [checked]="court.active" (change)="toggleActive.emit(court)">
+            </mat-slide-toggle>
+
+            <button class="text-blue-600 text-sm font-medium" (click)="edit.emit(court)">
+                Edit
+            </button>
+        </div>
+
+    </div>
+    }
+
+</div>
