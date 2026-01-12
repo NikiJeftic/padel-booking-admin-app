@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { BookingDetailsPanelComponent } from '../booking-details-panel/booking-details-panel';
-import { AdminDayViewFiltersComponent, DayViewFilters } from '../admin-day-view-filters/admin-day-view-filters';
+import { BookingDetailsPanelComponent } from '../components/booking-details-panel/booking-details-panel';
+import { AdminDayViewFiltersComponent, DayViewFilters } from '../components/admin-day-view-filters/admin-day-view-filters';
 
 export interface Booking {
   id: number;

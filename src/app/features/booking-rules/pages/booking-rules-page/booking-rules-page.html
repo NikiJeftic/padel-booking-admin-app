@@ -1,0 +1,26 @@
+<mat-drawer-container class="h-full">
+
+    <!-- MAIN CONTENT -->
+    <mat-drawer-content class="p-6">
+
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-xl font-semibold">Booking Rules</h1>
+            <button class="px-4 py-2 bg-blue-600 text-white rounded" (click)="onAddRule()">
+                + Add rule
+            </button>
+        </div>
+
+        <app-booking-rules-list [rules]="rules" (edit)="onEditRule($event)">
+        </app-booking-rules-list>
+
+    </mat-drawer-content>
+
+    <!-- RIGHT DRAWER -->
+    <mat-drawer position="end" mode="over" [opened]="drawerOpen" (closed)="onCloseDrawer()" class="w-[420px]">
+
+        <app-booking-rule-form [rule]="selectedRule" (cancel)="onCloseDrawer()" (save)="onSaveRule($event)">
+        </app-booking-rule-form>
+
+    </mat-drawer>
+
+</mat-drawer-container>

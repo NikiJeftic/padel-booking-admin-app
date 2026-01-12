@@ -1,0 +1,65 @@
+<div class="bg-white border rounded divide-y">
+
+    @for (rule of rules; track rule.id) {
+    <div class="p-4 hover:bg-gray-50 flex justify-between gap-6">
+
+        <!-- LEFT CONTENT -->
+        <div class="space-y-3">
+
+            <!-- DATE RANGE -->
+            <div class="text-sm font-semibold text-gray-900">
+                {{ rule.startDate | date:'dd MMM yyyy' }}
+                –
+                {{ rule.endDate | date:'dd MMM yyyy' }}
+            </div>
+
+            <!-- WORKING HOURS -->
+            <div class="text-sm text-gray-600">
+                Working hours:
+                <span class="font-medium">
+                    {{ rule.openingTime }} – {{ rule.closingTime }}
+                </span>
+            </div>
+
+            <!-- COURT RULES -->
+            <div class="space-y-2 pt-2">
+
+                @for (availability of rule.availabilityRules; track availability.id) {
+                <div class="flex items-start gap-3 text-sm">
+
+                    <!-- COURT LABEL -->
+                    <div class="min-w-[70px] font-medium text-gray-700">
+                        {{ availability.court === 'all'
+                        ? 'All courts'
+                        : 'Court ' + availability.court
+                        }}
+                    </div>
+
+                    <!-- DETAILS -->
+                    <div class="text-gray-600">
+                        <div>
+                            {{ availability.startTime }} – {{ availability.endTime }}
+                        </div>
+                        <div class="text-xs text-gray-500">
+                            {{ availability.durations.join(', ') }} min
+                        </div>
+                    </div>
+
+                </div>
+                }
+
+            </div>
+
+        </div>
+
+        <!-- ACTION -->
+        <div class="flex items-start">
+            <button class="text-blue-600 text-sm font-medium hover:underline" (click)="edit.emit(rule)">
+                Edit
+            </button>
+        </div>
+
+    </div>
+    }
+
+</div>

@@ -1,0 +1,144 @@
+<div class="h-full flex flex-col mat-density-compact">
+
+    <!-- SCROLLABLE CONTENT -->
+    <div class="flex-1 overflow-auto p-6 space-y-6">
+
+        <!-- HEADER -->
+        <div>
+            <h2 class="text-lg font-semibold">
+                {{ rule ? 'Edit booking rule' : 'Create booking rule' }}
+            </h2>
+            <p class="text-sm text-gray-500">
+                {{ rule
+                ? 'Update booking rule settings'
+                : 'Define when and how courts can be booked'
+                }}
+            </p>
+        </div>
+
+        <!-- DATE RANGE -->
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Date range</mat-label>
+
+            <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate [(ngModel)]="form.startDate" placeholder="Start date">
+                <input matEndDate [(ngModel)]="form.endDate" placeholder="End date">
+            </mat-date-range-input>
+
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+
+        <!-- WORKING HOURS -->
+        <div>
+            <div class="text-sm font-medium mb-2">
+                Working hours
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm text-gray-600 mb-1">
+                        Opening time
+                    </label>
+                    <input type="time" class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
+                        [(ngModel)]="form.openingTime" />
+                </div>
+
+                <div>
+                    <label class="block text-sm text-gray-600 mb-1">
+                        Closing time
+                    </label>
+                    <input type="time" class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
+                        [(ngModel)]="form.closingTime" />
+                </div>
+            </div>
+        </div>
+
+        <!-- AVAILABILITY RULES -->
+        <div class="space-y-2">
+            <div class="font-medium">
+                Availability rules
+            </div>
+
+            @for (r of form.availabilityRules; track r.id) {
+            <mat-card class="p-3 border shadow-none flex justify-between items-center">
+                <div class="text-sm">
+                    <strong>
+                        {{ r.court === 'all' ? 'All courts' : 'Court ' + r.court }}
+                    </strong>
+                    · {{ r.startTime }} – {{ r.endTime }}
+                    · {{ r.durations.join(', ') }} min
+                </div>
+
+                <button mat-button color="warn" (click)="removeRule(r.id)">
+                    Remove
+                </button>
+            </mat-card>
+            }
+        </div>
+
+        <!-- ADD RULE -->
+        @if (!hasAllCourtsRule && !showAddRule) {
+        <button mat-stroked-button color="primary" (click)="openAddRule()">
+            + Add availability rule
+        </button>
+        }
+
+        <!-- INLINE ADD RULE -->
+        @if (showAddRule) {
+        <mat-card class="p-4 space-y-4 border shadow-none">
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Court</mat-label>
+                <mat-select [(ngModel)]="newRule.court">
+                    <mat-option value="all">All courts</mat-option>
+                    <mat-option value="1">Court 1</mat-option>
+                    <mat-option value="2">Court 2</mat-option>
+                    <mat-option value="3">Court 3</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm text-gray-600 mb-1">Start time</label>
+                    <input type="time" class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
+                        [(ngModel)]="newRule.startTime" />
+                </div>
+
+                <div>
+                    <label class="block text-sm text-gray-600 mb-1">End time</label>
+                    <input type="time" class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
+                        [(ngModel)]="newRule.endTime" />
+                </div>
+            </div>
+
+            <div>
+                <div class="text-sm font-medium mb-1">Allowed durations</div>
+                <mat-button-toggle-group multiple>
+                    @for (d of [60, 90, 120]; track d) {
+                    <mat-button-toggle [checked]="newRule.durations?.includes(d)" (click)="toggleDuration(d)">
+                        {{ d }} min
+                    </mat-button-toggle>
+                    }
+                </mat-button-toggle-group>
+            </div>
+
+            <div class="flex justify-end gap-2">
+                <button mat-button (click)="cancelAddRule()">Cancel</button>
+                <button mat-flat-button color="primary" (click)="addAvailabilityRule()">
+                    Add
+                </button>
+            </div>
+
+        </mat-card>
+        }
+
+    </div>
+
+    <!-- FOOTER (STICKY BOTTOM) -->
+    <div class="border-t px-6 py-4 flex justify-end gap-2">
+        <button mat-button (click)="cancel.emit()">Cancel</button>
+        <button mat-flat-button color="primary" (click)="onSave()">Save</button>
+    </div>
+
+</div>

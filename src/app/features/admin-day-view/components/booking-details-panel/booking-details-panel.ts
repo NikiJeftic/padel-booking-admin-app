@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgClass, TitleCasePipe } from '@angular/common';
-import { Booking } from '../admin-day-view/admin-day-view';
+import { Booking } from '../../pages/admin-day-view';
 
 @Component({
   selector: 'app-booking-details-panel',
