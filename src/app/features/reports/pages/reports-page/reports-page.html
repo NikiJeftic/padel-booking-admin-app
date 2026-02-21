@@ -1,0 +1,19 @@
+<div class="p-6 space-y-6">
+
+    <h1 class="text-xl font-semibold">
+        Reports
+    </h1>
+
+    <!-- FILTERS -->
+    <app-reports-filters (filtersChange)="onFiltersChange($event)">
+    </app-reports-filters>
+
+    <!-- KPIs -->
+    <app-reports-kpis [filters]="filters">
+    </app-reports-kpis>
+
+    <!-- CHARTS -->
+    <app-reports-charts [filters]="filters">
+    </app-reports-charts>
+
+</div>

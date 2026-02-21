@@ -1,0 +1,35 @@
+<div class="flex flex-wrap gap-4 items-end">
+
+    <!-- DATE RANGE -->
+    <mat-form-field appearance="outline">
+        <mat-label>Date range</mat-label>
+
+        <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate [(ngModel)]="filters.startDate" (dateChange)="emit()">
+            <input matEndDate [(ngModel)]="filters.endDate" (dateChange)="emit()">
+        </mat-date-range-input>
+
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <!-- COURTS -->
+    <mat-form-field appearance="outline" class="min-w-[220px]">
+        <mat-label>Courts</mat-label>
+
+        <mat-select multiple [value]="filters.courts === 'all' ? ['all'] : filters.courts"
+            (selectionChange)="setCourts($event.value)">
+
+            <mat-option value="all">
+                All courts
+            </mat-option>
+
+            @for (court of courts; track court.id) {
+            <mat-option [value]="court.id">
+                {{ court.name }}
+            </mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+</div>

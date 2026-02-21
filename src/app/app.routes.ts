@@ -21,6 +21,10 @@ export const routes: Routes = [
                 path: 'courts',
                 component: CourtsPage, // /admin/courts
             },
+            {
+                path: 'reports',
+                loadComponent: () => import('./features/reports/pages/reports-page/reports-page').then(m => m.ReportsPage), // /admin/reports
+            }
         ],
     },
     {
